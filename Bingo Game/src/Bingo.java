@@ -33,7 +33,9 @@ public class Bingo
 					{
 						for (int j =0; j<5; j++)
 							{
-								UserCard.userBoard[i][j]= "  " + ((int)(Math.random()*90)+10) + "  ";
+								int randomNumber = ((int)(Math.random()*90)+10);
+								String randoNum = Integer.toString(randomNumber);
+								UserCard.userBoard[i][j]=randoNum;
 							}
 					}
 				UserCard.display();
@@ -52,31 +54,75 @@ public class Bingo
 			}
 		public static void playGame()
 			{
+				int callingNum = ((int)(Math.random()*90)+10);
 				boolean playingGame = true;
 				while (playingGame)
 					{
-						int callingNumber = ((int)(Math.random()*90)+10);
-						for (int i=0; i<5; i++)
+						System.out.println(callingNum);
+						String callingNumber = Integer.toString(callingNum);
+						for (int i=0; i<UserCard.userBoard.length; i++)
 						{
-							for (int j =0; j<5; j++)
+							for (int j =0; j<UserCard.userBoard[0].length; j++)
 								{
-									if ([i][j]= callingNumber)
-									{
-										System.out.println("You have " + callingNumber);
-									}
-									else 
-									{
-										System.out.println("You don't have " + callingNumber);
-									}
+//									System.out.println(UserCard.userBoard[i][j]);
+//									System.out.println(callingNumber);
+									if (UserCard.userBoard[i][j].equals(callingNumber))
+										{
+											System.out.println("You have " + callingNumber);
+										}
+									if (ComputerCard.jeffBoard[i][j].equals(callingNumber))
+										{
+											System.out.println("Jeff has " + callingNumber);
+										}
+									else
+										{
+											System.out.println("you dont have it");
+										}
 								}
 						}
+						playingGame=false;
 					}
 			}
-//		public static void callingNumber()
-//			{
-//				Random generate = new Random();
-//			    String[] randomName = {"B", "I", "N", "G", "O"};
-//			    System.out.println(randomName[generate.nextInt(4)] + ((int)(Math.random()*90)+10));
-//			}
+		public void isBingo(char[][] array,char g)
+			{
+				boolean bingo = false;
+				int countB=0;
+				for(int i=0;i<array.length;i++)
+					{
+						for(int j=0;j<=i;j++)
+							{
+								if(array[0][j]==g&&array[1][j]==g&&array[2][j]==g&&array[3][j]==g&&array[4][j]==g)
+									{
+										bingo = true;
+										countB++;
+									}
+								else if(array[i][0]==g&&array[i][1]==g&&array[i][2]==g&&array[i][3]==g&&array[i][4]==g)
+									{
+										bingo = true;
+										countB++;
+									}
+								else if(array[0][0]==g&&array[1][1]==g&&array[2][2]==g&&array[3][3]==g&&array[4][4]==g)
+									{
+										bingo =true;
+										countB++;
+									}
+								else if(array[0][4]==g&&array[1][3]==g&&array[2][2]==g&&array[3][1]==g&&array[4][0]==g)
+									{
+										bingo= true;
+										countB++;
+									}
+								else
+									{
+										bingo = false;
+									}
+							}
+					}  
+		}
+		public static void callingNumber()
+			{
+				Random generate = new Random();
+			    String[] randomName = {"B", "I", "N", "G", "O"};
+			    System.out.println(randomName[generate.nextInt(4)] + ((int)(Math.random()*90)+10));
+			}
 		
 	}
