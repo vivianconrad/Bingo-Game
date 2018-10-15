@@ -9,7 +9,7 @@ public class Bingo
 			{
 				//userWelcome();
 				getBingoCards();
-				//playGame();
+				playGame();
 			}
 		public static void userWelcome()
 			{
@@ -37,7 +37,7 @@ public class Bingo
 							}
 					}
 				UserCard.display();
-				System.out.println(name + ", press enter to get the Jeff's card");
+				System.out.println(name + ", press enter to get Jeff's card");
 				String jeffCard = userInput.nextLine();
 				ComputerCard.createCard();
 				ComputerCard.jeffBoard= new String [5][5];
@@ -55,14 +55,28 @@ public class Bingo
 				boolean playingGame = true;
 				while (playingGame)
 					{
-						callingNumber();
+						int callingNumber = ((int)(Math.random()*90)+10);
+						for (int i=0; i<5; i++)
+						{
+							for (int j =0; j<5; j++)
+								{
+									if ([i][j]= callingNumber)
+									{
+										System.out.println("You have " + callingNumber);
+									}
+									else 
+									{
+										System.out.println("You don't have " + callingNumber);
+									}
+								}
+						}
 					}
 			}
-		public static void callingNumber()
-			{
-				Random generate = new Random();
-			    String[] randomName = {"B", "I", "N", "G", "O"};
-			    System.out.println(randomName[generate.nextInt(4)] + ((int)(Math.random()*90)+10));
-			}
+//		public static void callingNumber()
+//			{
+//				Random generate = new Random();
+//			    String[] randomName = {"B", "I", "N", "G", "O"};
+//			    System.out.println(randomName[generate.nextInt(4)] + ((int)(Math.random()*90)+10));
+//			}
 		
 	}
