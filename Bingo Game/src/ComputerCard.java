@@ -76,7 +76,6 @@ public class ComputerCard
 								{
 									System.out.println("Jeff got a blackout!");
 									System.out.println("Congrats, you failed to beat the computer!");
-									System.exit(0);
 									return true;
 								}
 						return false;

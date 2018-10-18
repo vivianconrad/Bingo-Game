@@ -2,10 +2,19 @@
 public class UserCard
 	{
 		static String[][] userBoard;
+		public static String[][] userBoardBlank;
 		
 		public static void createCard ()
 		{
 			userBoard = new String [5][5];
+			for (int i=0; i<5; i++)
+				{
+					for (int j =0; j<5; j++)
+						{
+							userBoard[i][j]="  ";
+						}
+				}
+			userBoardBlank = new string [5][5];
 			for (int i=0; i<5; i++)
 				{
 					for (int j =0; j<5; j++)
@@ -77,5 +86,20 @@ public class UserCard
 							return true;
 						}
 				return false;
+			}
+		public static void secretMode()
+			{
+				System.out.println("       B      I      N      G      O        ");
+				System.out.println("    ------------------------------------    ");
+				System.out.println("    |  " + userBoardBlank[0][0] +"  |  "+ userBoardBlank[0][1] + "  |  " + userBoardBlank [0][2] + "  |  " + userBoardBlank[0][3] + "  |  " + userBoardBlank[0][4] + "  |");
+				System.out.println("    ------------------------------------");
+				System.out.println("    |  " + userBoardBlank[1][0] +"  |  "+ userBoardBlank[1][1] + "  |  " + userBoardBlank [1][2] + "  |  " + userBoardBlank[1][3] + "  |  " + userBoardBlank[1][4] + "  |");
+				System.out.println("    ------------------------------------");
+				System.out.println("    |  " + userBoardBlank[2][0] +"  |  "+ userBoardBlank[2][1] + "  | FREE |  " + userBoardBlank[2][3] + "  |  " + userBoardBlank[2][4] + "  | ");
+				System.out.println("    ------------------------------------");
+				System.out.println("    |  " + userBoardBlank[3][0] +"  |  "+ userBoardBlank[3][1] + "  |  " + userBoardBlank [3][2] + "  |  " + userBoardBlank[3][3] + "  |  " + userBoardBlank[3][4] + "  | ");
+				System.out.println("    ------------------------------------");
+				System.out.println("    |  " + userBoardBlank[4][0] +"  |  "+ userBoardBlank[4][1] + "  |  " + userBoardBlank [4][2] + "  |  " + userBoardBlank[4][3] + "  |  " + userBoardBlank[4][4] + "  | ");
+				System.out.println("    ------------------------------------");
 			}
 	}

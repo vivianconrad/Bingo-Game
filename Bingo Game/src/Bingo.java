@@ -31,6 +31,7 @@ public class Bingo
 		public static void decideGameMode()
 			{
 				System.out.println("Would you like eazy, medium or hard? Press 1 for easy, 2 for medium, 3 for hard");
+				System.out.println("Psst...do you want a fun secret game? Press 4!");
 				gameChoice = userInputInt.nextInt();
 				if (gameChoice == 1)
 					{
@@ -43,6 +44,11 @@ public class Bingo
 				else if (gameChoice == 3)
 					{
 						getHardBingoCards();
+					}
+				else if (gameChoice == 4)
+					{
+						createSecretCards();
+						secretBingoGame();
 					}
 				else 
 					{
@@ -183,7 +189,6 @@ public class Bingo
 											System.out.println("Your Board:");
 											UserCard.userBoard[i][j] = "XX";
 											UserCard.display();
-											UserCard.isBingo();
 										}
 									if (ComputerCard.jeffBoard[i][j].equals(callingNumber))
 										{
@@ -191,22 +196,175 @@ public class Bingo
 											System.out.println("Jeff's Board:");
 											ComputerCard.jeffBoard[i][j] = "XX";
 											ComputerCard.display();
-											ComputerCard.isBingo();
 										}
 								}
 						}
 						playingGame=false;
 					}
-				UserCard.isBingo();
-				ComputerCard.isBingo();
-				System.out.println("Press enter for the next calling number");
-				String nextNum= userInputStrings.nextLine();
-				playBingoGame();
+				if (UserCard.isBingo()==true)
+					{
+						System.out.println("Do you want to continue and see if you can get a blackout?");
+						String playBlackoutMaybe = userInputStrings.nextLine();
+						if (playBlackoutMaybe.toLowerCase().equals("no"))
+							{
+								System.out.println("Thanks for playing!");
+								System.exit(0);
+							}
+						else
+							{
+								System.out.println("Time to play blackout! The first to fill their Bingo card up entirely with XX wins!");
+								blackoutGame();
+							}
+					}
+				else if (ComputerCard.isBingo()==true)
+					{
+						System.out.println("Thanks for playing. goodbye.");
+						System.exit(0);
+					}
+				else
+					{
+						System.out.println("Press enter for the next calling number");
+						String nextNum= userInputStrings.nextLine();
+						playBingoGame();
+					}
+				
 			}
+		public static void createSecretCards()
+			{
+				System.out.println(name + ", press enter to get your bingo card");
+				String getCard = userInputStrings.nextLine();
+				UserCard.userBoardBlank = new String [5][5];
+				for (int i=0; i<5; i++)
+					{
+						for (int j =0; j<5; j++)
+							{
+								UserCard.userBoardBlank[i][j]="  ";
+							}
+					}
+				UserCard.userBoard = new String [5][5];
+				for (int i=0; i<5; i++)
+					{
+						for (int j =0; j<5; j++)
+							{
+								int randomNumber = ((int)(Math.random()*42)+10);
+								String randoNum = Integer.toString(randomNumber);
+								UserCard.userBoard[i][j]=randoNum;
+							}
+					}
+				UserCard.secretMode();
+				System.out.println("What? Your card is blank?");
+				System.out.println("This secret mode is weird");
+				System.out.println("In this mode, you don't know what numbers are on your card");
+				System.out.println("Guess numbers from 10-42! If the number is on your card, it will be replaced with XX");
+				}
+		public static void secretBingoGame()
+		{
+			System.out.println("What do you want the calling number to be?");
+			int callingNumber = userInputInt.nextInt();
+			for (int i=0; i<UserCard.userBoard.length; i++)
+				{
+					for (int j =0; j<UserCard.userBoard[0].length; j++)
+						{
+							if (UserCard.userBoard[i][j].equals(callingNumber))
+								{
+									System.out.println("You have " + callingNumber);
+									System.out.println("Your Board:");
+									UserCard.userBoard[i][j] = "XX";
+									UserCard.secretMode();
+								}
+//							if (ComputerCard.jeffBoard[i][j].equals(callingNumber))
+//								{
+//									System.out.println("Jeff has " + callingNumber);
+//									System.out.println("Jeff's Board:");
+//									ComputerCard.jeffBoard[i][j] = "XX";
+//									ComputerCard.display();
+//								}
+						}
+				}
+			if (UserCard.isBingo()==true)
+				{
+					System.out.println("Do you want to continue and see if you can get a blackout?");
+					String playBlackoutMaybe = userInputStrings.nextLine();
+					if (playBlackoutMaybe.toLowerCase().equals("no"))
+						{
+							System.out.println("Thanks for playing!");
+							System.exit(0);
+						}
+					else
+						{
+							System.out.println("Time to play blackout! The first to fill their Bingo card up entirely with XX wins!");
+							blackoutGame();
+						}
+				}
+//			else if (ComputerCard.isBingo()==true)
+//				{
+//					System.out.println("Thanks for playing. goodbye.");
+//					System.exit(0);
+//				}
+			else
+				{
+					secretBingoGame();
+				}
+		}
 		public static void blackoutGame()
 			{
-				System.out.println("Do you want to continue and see if you can get a blackout?");
-				String playBlackoutMaybe = userInputStrings.nextLine();
+				int callingNum = 0;
+				boolean playingGame = true;
+				while (playingGame)
+					{
+						if (gameChoice == 1)
+							{
+								callingNum = ((int)(Math.random()*35)+10);
+							}
+						if (gameChoice == 2)
+							{
+								callingNum = ((int)(Math.random()*50)+10);
+							}
+						if (gameChoice == 3)
+							{
+								callingNum = ((int)(Math.random()*90)+10);
+							}
+						System.out.println("The calling number is " + callingNum);
+						String callingNumber = Integer.toString(callingNum);
+						for (int i=0; i<UserCard.userBoard.length; i++)
+						{
+							for (int j =0; j<UserCard.userBoard[0].length; j++)
+								{
+									if (UserCard.userBoard[i][j].equals(callingNumber))
+										{
+											System.out.println("You have " + callingNumber);
+											System.out.println("Your Board:");
+											UserCard.userBoard[i][j] = "XX";
+											UserCard.display();
+										}
+									if (ComputerCard.jeffBoard[i][j].equals(callingNumber))
+										{
+											System.out.println("Jeff has " + callingNumber);
+											System.out.println("Jeff's Board:");
+											ComputerCard.jeffBoard[i][j] = "XX";
+											ComputerCard.display();
+										}
+								}
+						}
+						playingGame=false;
+					}
+				if (UserCard.isBlackout()==true)
+					{
+						System.out.println("You won!");
+						System.exit(0);
+					}
+				else if (ComputerCard.isBlackout()==true)
+					{
+						System.out.println("You failed!");
+						System.out.println("Goodbye.");
+						System.exit(0);
+					}
+				else
+					{
+						System.out.println("Press enter for the next calling number");
+						String nextNum= userInputStrings.nextLine();
+						blackoutGame();
+					}
 				
 			}
 	}
