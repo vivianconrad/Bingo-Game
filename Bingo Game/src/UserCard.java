@@ -14,7 +14,7 @@ public class UserCard
 							userBoard[i][j]="  ";
 						}
 				}
-			userBoardBlank = new string [5][5];
+			userBoardBlank = new String [5][5];
 			for (int i=0; i<5; i++)
 				{
 					for (int j =0; j<5; j++)

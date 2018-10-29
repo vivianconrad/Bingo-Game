@@ -1,12 +1,18 @@
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class Bingo
 	{
 		static Scanner userInputStrings = new Scanner(System.in);
 		static Scanner userInputInt = new Scanner(System.in);
 		static String name;
 		static int gameChoice;
+		private static final long serialVersionUID = 1L;
+		static JFrame frame = new JFrame();
+		
 		public static void main(String[] args)
 			{
 				//userWelcome();
@@ -16,52 +22,51 @@ public class Bingo
 			}
 		public static void userWelcome()
 			{
-				System.out.println("Hello! What's your name?");
-				name = userInputStrings.nextLine();
-				System.out.println("Hi " + name + "! Welcome to BINGO! Press enter for the game rules.");
-				String resume = userInputStrings.nextLine();
-				System.out.println("The caller will say a letter and a number.");
-				System.out.println("If you have the number, then you will recieve an X.");
-				System.out.println("If you get 5 X's in a row, column or diagonal, then you win.");
-				System.out.println("BUT if the computer gets 5 X's first, then you lose.");
-				System.out.println("Also, the computer's name is Jeff the Wonder Dog");	
-				System.out.println("Press enter to continue");
-				String resume2 = userInputStrings.nextLine();
+				name = JOptionPane.showInputDialog("What is your name?");  
+				JOptionPane.showMessageDialog(frame, "Hi, " + name + "! Welcome to BINGO!");
+				
+				JOptionPane.showMessageDialog(frame, "The caller will say a letter and a number. If you have the number, then you will recieve an X. If you get 5 X's in a row, column or diagonal, then you win. Also, the computer's name is Jeff the Wonder Dog. ");
 			}
 		public static void decideGameMode()
 			{
-				System.out.println("Would you like eazy, medium or hard? Press 1 for easy, 2 for medium, 3 for hard");
-				System.out.println("Psst...do you want a fun secret game? Press 4!");
-				gameChoice = userInputInt.nextInt();
-				if (gameChoice == 1)
+				Object[] options = {"Eazy", "Medium", "Hard", "Secret"};
+				gameChoice = JOptionPane.showOptionDialog(frame, "Would you like eazy, medium or hard??",
+						"Game Option",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						null, options, options[0]);
+				
+				if (gameChoice == 0)
 					{
+						JOptionPane.showMessageDialog(frame, name + ", taking the easy way out? Well okay then...");
 						getEazyBingoCards();
+					}
+				else if (gameChoice == 1)
+					{
+						JOptionPane.showMessageDialog(frame, "Medium is the way to go...if you're ordering a steak");
+						getMediumBingoCards();
 					}
 				else if (gameChoice == 2)
 					{
-						getMediumBingoCards();
+						JOptionPane.showMessageDialog(frame, "Hard mode? Now we're talking...");
+						getHardBingoCards();
 					}
 				else if (gameChoice == 3)
 					{
-						getHardBingoCards();
-					}
-				else if (gameChoice == 4)
-					{
+						JOptionPane.showMessageDialog(frame, "Secret mode? What's this?");
 						createSecretCards();
 						secretBingoGame();
 					}
 				else 
 					{
-						System.out.println("You suck");
-						System.out.println("No BINGO for you");
+						JOptionPane.showMessageDialog(frame, "You suck");
 						System.exit(0);
 					}
 			}
 		public static void getEazyBingoCards()
 			{
 				gameChoice = 1;
-				System.out.println(name + ", press enter to get your bingo card");
-				String getCard = userInputStrings.nextLine();
+				JOptionPane.showMessageDialog(frame, name + ", I guess you want your bingo card then");
 				UserCard.createCard();
 				UserCard.userBoard= new String [5][5];
 				for (int i=0; i<5; i++)
@@ -73,9 +78,9 @@ public class Bingo
 								UserCard.userBoard[i][j]=randoNum;
 							}
 					}
+				System.out.println("Your Bingo Card");
 				UserCard.display();
-				System.out.println(name + ", press enter to get Jeff's card");
-				String jeffCard = userInputStrings.nextLine();
+				JOptionPane.showMessageDialog(frame, "It might be helpful to get Jeff's card");
 				ComputerCard.createCard();
 				ComputerCard.jeffBoard= new String [5][5];
 				for (int i=0; i<5; i++)
@@ -87,6 +92,7 @@ public class Bingo
 								ComputerCard.jeffBoard[i][j]= compNum;
 							}
 					}
+				System.out.println("Jeff's Bingo Card");
 				ComputerCard.display();
 				System.out.println("Press enter for your first calling number!");
 				String firstNum= userInputStrings.nextLine();
